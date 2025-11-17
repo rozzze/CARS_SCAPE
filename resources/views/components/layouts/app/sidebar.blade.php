@@ -171,6 +171,11 @@
 
         {{ $slot }}
 
+        {{-- AÑADIMOS ESTO --}}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        @stack('scripts')
+        {{-- FIN DE LO AÑADIDO --}}  
+
         @fluxScripts
     </body>
 </html>
