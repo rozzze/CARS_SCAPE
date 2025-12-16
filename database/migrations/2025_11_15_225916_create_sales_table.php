@@ -15,17 +15,15 @@ return new class extends Migration
             $table->id();
 
             // Conexiones (Llaves Foráneas)
-            $table->foreignId('user_id')->constrained('users'); // El Vendedor
-            $table->foreignId('customer_id')->constrained('customers'); // El Cliente
-            $table->foreignId('vehicle_id')->unique()->constrained('vehicles'); // El Vehículo (único, solo se vende 1 vez)
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('customer_id')->constrained('customers');
+            $table->foreignId('vehicle_id')->unique()->constrained('vehicles');
 
-            // Datos de la Venta (RF-19)
-            $table->string('numero_boleta')->unique(); // RF-22 (Ej: B001-00000001)
+            $table->string('numero_boleta')->unique();
             $table->decimal('monto_total', 10, 2);
-            $table->string('metodo_pago'); // Contado, Financiado
+            $table->string('metodo_pago');
             $table->text('observaciones')->nullable();
 
-            // created_at servirá como la 'fecha_venta' (RF-19)
             $table->timestamps();
         });
     }

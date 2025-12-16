@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
 
             $table->id();
-            // Datos principales (RF-15)
+
             $table->string('tipo_documento'); // DNI/RUC
-            $table->string('numero_documento')->unique(); // ->unique() para RF-16
+            $table->string('numero_documento')->unique();
             $table->string('nombres_completos'); // O Razón Social
             $table->string('direccion_completa');
             $table->string('ciudad');
             $table->string('telefono')->nullable();
             $table->string('correo_electronico')->nullable();
 
-            $table->timestamps(); // Fecha de registro (created_at)
+            $table->timestamps();
             
         });
     }

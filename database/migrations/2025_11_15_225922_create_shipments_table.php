@@ -15,15 +15,13 @@ return new class extends Migration
             $table->id();
 
             // Conexión (Llave Foránea)
-            $table->foreignId('sale_id')->constrained('sales'); // Venta asociada
+            $table->foreignId('sale_id')->constrained('sales');
 
-            // Datos del Traslado (RF-27)
             $table->string('ciudad_destino');
             $table->string('direccion_entrega_completa');
             $table->date('fecha_estimada_entrega')->nullable();
-            $table->string('estado')->default('Pendiente'); // Pendiente, En Tránsito, Entregado
+            $table->string('estado')->default('Pendiente');
 
-            // Fechas de control (RF-30)
             $table->timestamp('fecha_salida')->nullable();
             $table->timestamp('fecha_entrega')->nullable();
             $table->text('observaciones')->nullable();

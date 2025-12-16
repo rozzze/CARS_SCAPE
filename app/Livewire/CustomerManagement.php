@@ -13,7 +13,7 @@ class CustomerManagement extends Component
 
     public $search = '';
 
-    // --- Propiedades para CREACIÓN (Primitivos) ---
+    //Propiedades para CREACIÓN
     public $showCreateModal = false;
     public $tipo_documento = 'DNI';
     public $numero_documento = '';
@@ -23,7 +23,7 @@ class CustomerManagement extends Component
     public $telefono = '';
     public $correo_electronico = '';
 
-    // --- Propiedades para EDICIÓN (Array + ID) ---
+    //Propiedades para EDICIÓN
     public $showEditModal = false;
     public $editingCustomerId;
     public $editingCustomer = [
@@ -34,7 +34,7 @@ class CustomerManagement extends Component
         'ciudad' => '',
         'telefono' => '',
         'correo_electronico' => '',
-    ]; // Inicializamos con claves para evitar errores
+    ];
 
     /**
      * Resetea el formulario de creación
@@ -89,14 +89,13 @@ class CustomerManagement extends Component
         $this->resetPage();
     }
 
-    // --- LÓGICA DE EDICIÓN (Tu Arquitectura) ---
+    // --- LÓGICA DE EDICIÓN ---
 
     public function openEditModal($customerId)
     {
         $customer = Customer::findOrFail($customerId);
         $this->editingCustomerId = $customer->id;
         
-        // Llenamos el array (DTO)
         $this->editingCustomer = [
             'tipo_documento' => $customer->tipo_documento,
             'numero_documento' => $customer->numero_documento,
@@ -119,7 +118,6 @@ class CustomerManagement extends Component
 
     public function updateCustomer()
     {
-        // Validamos usando la notación de punto
         $this->validate([
             'editingCustomer.tipo_documento' => 'required|string|in:DNI,RUC',
             'editingCustomer.numero_documento' => [
@@ -153,7 +151,6 @@ class CustomerManagement extends Component
     {
         $customers = Customer::query()
             ->where(function($query) {
-                // Buscamos por nombre o documento (RF-17)
                 $query->where('nombres_completos', 'like', '%' . $this->search . '%')
                       ->orWhere('numero_documento', 'like', '%' . $this->search . '%');
             })

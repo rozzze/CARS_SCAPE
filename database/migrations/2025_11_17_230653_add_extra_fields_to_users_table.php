@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // RF-04: Añadimos los campos que faltan
+
             $table->string('dni')->unique()->nullable()->after('email');
             $table->string('telefono')->nullable()->after('dni');
             $table->string('direccion')->nullable()->after('telefono');
             
-            // RF-07: Para activar/desactivar usuarios
             $table->boolean('is_active')->default(true)->after('direccion');
         });
     }
