@@ -66,6 +66,11 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(['role:Administrador'])
         ->name('usuarios');
 
+    // Reportes (Administrador)
+    Route::get('reportes', App\Livewire\Reports\SalesReports::class)
+        ->middleware(['role:Administrador'])
+        ->name('reportes');
+
     // RF-23: Historial de Ventas (Vendedor y Admin)
     Route::get('ventas', SaleHistory::class)
         ->middleware(['role:Vendedor|Administrador'])

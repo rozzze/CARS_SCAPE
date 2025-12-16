@@ -53,6 +53,9 @@
                         <flux:navlist.item icon="shield-check" :href="route('usuarios')" :current="request()->routeIs('usuarios')" wire:navigate>
                             {{ __('Usuarios') }}
                         </flux:navlist.item>
+                        <flux:navlist.item icon="document-chart-bar" :href="route('reportes')" :current="request()->routeIs('reportes')" wire:navigate>
+                            {{ __('Reportes PDF') }}
+                        </flux:navlist.item>
                     @endrole
                     
 

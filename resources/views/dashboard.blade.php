@@ -101,9 +101,40 @@
                 </div>
 
                 {{-- WIDGET DEL GRÁFICO --}}
-                <div class="relative h-full min-h-[400px] flex-1 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-6 shadow-sm">
-                    <canvas id="myDashboardChart"></canvas>
-                </div>
+                @if(auth()->user()->hasRole('Administrador'))
+                    <livewire:dashboard.admin-sales-chart />
+                @else
+                    {{-- GRÁFICO ESTÁTICO (Para otros roles) --}}
+                    <div 
+                        class="relative h-full min-h-[400px] flex-1 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-6 shadow-sm"
+                        x-data="{
+                            chartInstance: null,
+                            staticData: @js($chartData),
+                            staticTitle: @js($chartTitle),
+                            staticType: @js($chartType),
+                            initStaticChart() {
+                                if (this.chartInstance) this.chartInstance.destroy();
+                                const ctx = document.getElementById('myDashboardChart').getContext('2d');
+                                this.chartInstance = new Chart(ctx, {
+                                    type: this.staticType,
+                                    data: this.staticData,
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            legend: { position: 'bottom' },
+                                            title: { display: true, text: this.staticTitle, font: { size: 18 } }
+                                        }
+                                    }
+                                });
+                            }
+                        }"
+                        x-init="initStaticChart()"
+                        @dark-mode-toggled.window="initStaticChart()"
+                    >
+                        <canvas id="myDashboardChart"></canvas>
+                    </div>
+                @endif
             </div>
 
         </div>
